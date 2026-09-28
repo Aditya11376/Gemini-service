@@ -11,7 +11,7 @@ A Spring Boot microservice that uses Google's Gemini AI model to generate respon
 
 ## 📋 Prerequisites
 
-- Java 17+
+- Java 21
 - Maven
 - A Gemini API key ([get one here](https://aistudio.google.com/app/apikey))
 
@@ -59,14 +59,14 @@ POST /gemini/generate
 Content-Type: application/json
 
 {
-  "message": "Your prompt here"
+    "message":"Pm of india?"
 }
 ```
 
 **Response:**
 ```json
 {
-  "reply": "AI-generated response..."
+    "reply": "The current Prime Minister of India is **Narendra Modi**. He has been in office since May 2014."
 }
 ```
 
