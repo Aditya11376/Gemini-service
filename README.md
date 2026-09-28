@@ -1,6 +1,6 @@
 # Gemini Service
 
-A Spring Boot microservice that uses Google's Gemini AI model to generate responses based on user prompts. Part of the **VoltFind** backend ecosystem.
+A Spring Boot microservice that uses Google's Gemini AI model to generate responses based on user prompts.
 
 ## 🚀 Features
 
