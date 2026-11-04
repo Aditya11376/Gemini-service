@@ -25,11 +25,7 @@ A Spring Boot microservice that uses Google's Gemini AI model to generate respon
 
 2. **Configure environment variables**
 
-   Copy `.env.example` to `.env` and fill in your values:
-   ```bash
-   cp .env.example .env
-   ```
-
+   Create `.env` and fill in your values:
    Then set your Gemini API key:
    ```
    GEMINI_API_KEY=your_actual_api_key_here
@@ -90,7 +86,7 @@ Content-Type: application/json
 ## 🔐 Security Notes
 
 - The API key is injected via the `GEMINI_API_KEY` environment variable — **never hardcoded**
-- `.env` files are gitignored — use `.env.example` as a reference template
+- `.env` files are gitignored
 - In production, use a secrets manager (e.g., AWS Secrets Manager, GCP Secret Manager)
 
 ## 🏗️ Project Structure
