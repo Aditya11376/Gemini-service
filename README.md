@@ -5,7 +5,7 @@ A Spring Boot microservice that uses Google's Gemini AI model to generate respon
 ## 🚀 Features
 
 - REST API endpoint to interact with Gemini AI
-- Environment-variable-based configuration (no hardcoded secrets)
+- Environment-variable-based configuration
 - Input validation and global exception handling
 - Runs on port `8092`
 
@@ -33,7 +33,7 @@ A Spring Boot microservice that uses Google's Gemini AI model to generate respon
    Then set your Gemini API key:
    ```
    GEMINI_API_KEY=your_actual_api_key_here
-   GEMINI_MODEL=gemini-3.6-flash   # optional
+   GEMINI_MODEL=gemini-2.0-flash  (LLM)
    ```
 
    > ⚠️ **Never commit `.env` or any file containing real API keys to version control!**
@@ -52,6 +52,23 @@ A Spring Boot microservice that uses Google's Gemini AI model to generate respon
 
 ## 📡 API Endpoints
 
+### Check Health
+
+```
+GET {"/", "/health", "/gemini/health"}
+```
+
+**Response:**
+```json
+{
+   "status":"UP",
+   "service": "gemini-service",
+   "port": 8092,
+   "timestamp": "04-11-2026, 15:04 PM"
+}
+```
+
+
 ### Generate AI Response
 
 ```
@@ -59,7 +76,7 @@ POST /gemini/generate
 Content-Type: application/json
 
 {
-    "message":"Pm of india?"
+    "message":"Pm of India?"
 }
 ```
 
