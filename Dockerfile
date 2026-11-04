@@ -26,7 +26,7 @@ EXPOSE 8092
 
 # Environment variables (override at runtime via Render dashboard)
 ENV GEMINI_API_KEY=your_api_key_here
-ENV GEMINI_MODEL=gemini-1.5-flash
+ENV GEMINI_MODEL=gemini-3.6-flash
 
 # Run
 ENTRYPOINT ["java", "-jar", "app.jar"]
