@@ -1,4 +1,9 @@
-# Gemini Service
+# Gemini Microservice
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.1-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Render](https://img.shields.io/badge/Deployment-Render-46e3b7.svg)](https://render.com)
+[![Status](https://img.shields.io/badge/Port-8092-purple.svg)]()
 
 A Spring Boot microservice that uses Google's Gemini AI model to generate responses based on user prompts.
 
