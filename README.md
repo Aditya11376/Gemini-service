@@ -33,7 +33,7 @@ A Spring Boot microservice that uses Google's Gemini AI model to generate respon
    Then set your Gemini API key:
    ```
    GEMINI_API_KEY=your_actual_api_key_here
-   GEMINI_MODEL=gemini-3.6-flash  (LLM)
+   GEMINI_MODEL=gemini-1.5-flash  (LLM)
    ```
 
    > ⚠️ **Never commit `.env` or any file containing real API keys to version control!**
