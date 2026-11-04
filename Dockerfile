@@ -1,34 +1,32 @@
-# ─────────────────────────────────────────────
-# Stage 1: BUILD  (Maven + Java 21)
-# ─────────────────────────────────────────────
-FROM maven:3.9.9-eclipse-temurin-21 AS builder
-
+# Build stage
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
-# Copy pom first (layer cache — dependencies download only if pom changes)
+# Copy pom.xml and download dependencies
 COPY pom.xml .
-RUN mvn dependency:go-offline -q
+RUN mvn dependency:go-offline -B
 
-# Copy source and build
+# Copy source code and build
 COPY src ./src
-RUN mvn clean package -DskipTests -q
+RUN mvn clean package -DskipTests
 
-# ─────────────────────────────────────────────
-# Stage 2: RUN  (Slim JRE only — smaller image)
-# ─────────────────────────────────────────────
+# Run stage
 FROM eclipse-temurin:21-jre-alpine
-
 WORKDIR /app
 
-# Copy built jar from builder stage
-COPY --from=builder /app/target/gemini-0.0.1-SNAPSHOT.jar app.jar
+# Add non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+# Copy jar from build stage
+COPY --from=build /app/target/*.jar app.jar
 
 # Expose port
 EXPOSE 8092
 
 # Environment variables (override at runtime via Render dashboard)
 ENV GEMINI_API_KEY=your_api_key_here
-ENV GEMINI_MODEL=gemini-3.6-flash
+ENV GEMINI_MODEL=gemini-1.5-flash
 
 # Run
 ENTRYPOINT ["java", "-jar", "app.jar"]
