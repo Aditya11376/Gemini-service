@@ -20,37 +20,39 @@ public class GeminiExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleException(MethodArgumentNotValidException methodArgumentNotValidException){
-
         Map<String,String> errorsList = new HashMap<>();
         List<FieldError> list = methodArgumentNotValidException.getBindingResult().getFieldErrors();
-
-        list.forEach(error -> errorsList.put(error.getField(),error.getDefaultMessage()));
-
+        list.forEach(error -> errorsList.put(error.getField(), error.getDefaultMessage()));
         return new ResponseEntity<>(errorsList, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleException(Exception exception, WebRequest request){
+        // Extract deep cause message to help developer diagnose API key/Quota/Model issues
+        String detailedMessage = exception.getMessage();
+        if (exception.getCause() != null && exception.getCause().getMessage() != null) {
+            detailedMessage = detailedMessage + " -> " + exception.getCause().getMessage();
+        }
 
-        ErrorResponseDto errorResponseDto =new ErrorResponseDto(
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 request.getDescription(false),
                 HttpStatus.INTERNAL_SERVER_ERROR,
-                exception.getMessage(),
+                detailedMessage,
                 LocalDateTime.now()
         );
 
-        return new ResponseEntity<>(errorResponseDto,HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(RestClientException.class)
-    public ResponseEntity<ErrorResponseDto> handleRestClientException(RestClientException restClientException, WebRequest  request){
+    public ResponseEntity<ErrorResponseDto> handleRestClientException(RestClientException restClientException, WebRequest request){
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 request.getDescription(false),
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 restClientException.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(errorResponseDto,HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
