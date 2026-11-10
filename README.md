@@ -107,3 +107,9 @@ src/
 └── main/resources/
     └── application.properties
 ```
+
+---
+
+## 🛡️ License & Copyright
+
+&copy; 2026 **GUPTA SOFTWORKS ORGANISATION**. All rights reserved.  
